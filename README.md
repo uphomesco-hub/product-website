@@ -1,7 +1,8 @@
-# ROSA SHIFT
+# UpHomes SPYLT-Style Concept
 
-An editorial womenswear storefront concept for a six-piece capsule collection. The
-site uses React, Vite, Tailwind CSS, and GSAP for its scroll-led presentation.
+A separate UpHomes homepage design concept using the expressive editorial rhythm
+of the earlier ROSA SHIFT and SPYLT-inspired presentation. The real UpHomes
+website is not modified by this repository.
 
 ## Live Site
 
@@ -19,5 +20,6 @@ npm run preview
 ## Notes
 
 The production build is configured for GitHub Pages at `/product-website/`.
-Products, prices, and imagery are mock content for the design concept. Checkout is
-not connected.
+Property photography is concept imagery. The UpHomes logo, current homepage
+metrics, navigation labels, product content, and app previews are preserved from
+the read-only website audit.
