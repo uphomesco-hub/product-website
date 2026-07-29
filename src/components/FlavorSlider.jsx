@@ -12,24 +12,36 @@ const FlavorSlider = () => {
   });
 
   useGSAP(() => {
-    const scrollAmount = sliderRef.current.scrollWidth - window.innerWidth;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const getScrollAmount = () =>
+      Math.max(
+        0,
+        sliderRef.current.firstElementChild.scrollWidth -
+          sliderRef.current.clientWidth
+      );
+    const scrollAmount = getScrollAmount();
 
-    if (!isTablet) {
+    if (!isTablet && !reduceMotion && scrollAmount > 0) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".flavor-section",
-          start: "2% top",
-          end: `+=${scrollAmount + 1500}px`,
+          start: "top top",
+          end: () => `+=${getScrollAmount()}px`,
           scrub: true,
           pin: true,
+          invalidateOnRefresh: true,
         },
       });
 
-      tl.to(".flavor-section", {
-        x: `-${scrollAmount + 1500}px`,
-        ease: "power1.inOut",
+      tl.to(".flavors", {
+        x: () => -getScrollAmount(),
+        ease: "none",
       });
     }
+
+    if (reduceMotion) return;
 
     const titleTl = gsap.timeline({
       scrollTrigger: {
@@ -61,36 +73,26 @@ const FlavorSlider = () => {
         },
         "<"
       );
-  });
+  }, { dependencies: [isTablet], revertOnUpdate: true });
 
   return (
-    <div ref={sliderRef} className="slider-wrapper">
+    <div ref={sliderRef} className="slider-wrapper" id="collection">
       <div className="flavors">
-        {flavorlists.map((flavor) => (
-          <div
-            key={flavor.name}
-            className={`relative z-30 lg:w-[50vw] w-96 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}
-          >
+        {flavorlists.map((flavor, index) => (
+          <article key={flavor.name} className={`product-panel ${flavor.rotation}`}>
             <img
-              src={`${import.meta.env.BASE_URL}images/${flavor.color}-bg.svg`}
-              alt=""
-              className="absolute bottom-0"
+              src={flavor.image}
+              alt={`Model wearing the ${flavor.name}`}
+              width="900"
+              height="1500"
+              loading={index < 2 ? "eager" : "lazy"}
             />
-
-            <img
-              src={`${import.meta.env.BASE_URL}images/${flavor.color}-drink.webp`}
-              alt=""
-              className="drinks"
-            />
-
-            <img
-              src={`${import.meta.env.BASE_URL}images/${flavor.color}-elements.webp`}
-              alt=""
-              className="elements"
-            />
-
-            <h1>{flavor.name}</h1>
-          </div>
+            <div className="product-copy">
+              <p>{flavor.detail}</p>
+              <h2>{flavor.name}</h2>
+              <span>{flavor.price}</span>
+            </div>
+          </article>
         ))}
       </div>
     </div>

@@ -8,12 +8,16 @@ const VideoPinSection = () => {
   });
 
   useGSAP(() => {
-    if (!isMobile) {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!isMobile && !reduceMotion) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".vd-pin-section",
-          start: "-15% top",
-          end: "200% top",
+          start: "top top",
+          end: "+=180%",
           scrub: 1.5,
           pin: true,
         },
@@ -36,17 +40,17 @@ const VideoPinSection = () => {
         }}
         className="size-full video-box"
       >
-        <video src={`${import.meta.env.BASE_URL}videos/pin-video.mp4`} playsInline muted loop autoPlay />
-
-        <div className="abs-center md:scale-100 scale-200">
-          <img src={`${import.meta.env.BASE_URL}images/circle-text.svg`} alt="" className="spin-circle" />
-          <div className="play-btn">
-            <img
-              src={`${import.meta.env.BASE_URL}images/play.svg`}
-              alt=""
-              className="size-[3vw] ml-[.5vw]"
-            />
-          </div>
+        <img
+          src={`${import.meta.env.BASE_URL}fashion/05-cropped-rose-jacket.jpg`}
+          alt="Model wearing the deep-rose Shift Cropped Jacket"
+          className="reveal-image"
+          width="864"
+          height="1821"
+          loading="lazy"
+        />
+        <div className="reveal-copy">
+          <p>ROSA SHIFT</p>
+          <h2>Hold the shape. Change the direction.</h2>
         </div>
       </div>
     </section>

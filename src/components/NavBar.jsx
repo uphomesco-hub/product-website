@@ -1,7 +1,17 @@
 const NavBar = () => {
   return (
-    <nav className="fixed top-0 left-0 z-50 md:p-9 p-3">
-      <img src={`${import.meta.env.BASE_URL}images/nav-logo.svg`} alt="nav-logo" className="md:w-24 w-20" />
+    <nav className="site-nav" aria-label="Primary navigation">
+      <a className="wordmark" href="#top" aria-label="ROSA SHIFT home">
+        ROSA
+        <span>SHIFT</span>
+      </a>
+      <div className="nav-links">
+        <a href="#collection">Collection</a>
+        <a href="#lookbook">Lookbook</a>
+      </div>
+      <a className="nav-cta" href="#collection">
+        Shop the edit
+      </a>
     </nav>
   );
 };

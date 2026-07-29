@@ -74,6 +74,8 @@ web_modules/
 .cache
 .parcel-cache
 .vite
+.playwright-cli
+output
 
 # Next.js build output
 .next

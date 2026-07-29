@@ -1,21 +1,23 @@
-import { useRef } from "react";
 import { cards } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 const TestimonialSection = () => {
-  const vdRef = useRef([]);
-
   useGSAP(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduceMotion) return;
+
     gsap.set(".testimonials-section", {
-      marginTop: "-140vh",
+      marginTop: "-100vh",
     });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".testimonials-section",
         start: "top bottom",
-        end: "200% top",
+        end: "160% top",
         scrub: true,
       },
     });
@@ -41,8 +43,8 @@ const TestimonialSection = () => {
     const pinTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".testimonials-section",
-        start: "10% top",
-        end: "200% top",
+        start: "top top",
+        end: "+=180%",
         scrub: 1.5,
         pin: true,
       },
@@ -55,41 +57,29 @@ const TestimonialSection = () => {
     });
   });
 
-  const handlePlay = (index) => {
-    const video = vdRef.current[index];
-    video.play();
-  };
-
-  const handlePause = (index) => {
-    const video = vdRef.current[index];
-    video.pause();
-  };
-
   return (
-    <section className="testimonials-section">
-      <div className="absolute size-full flex flex-col items-center pt-[5vw]">
-        <h1 className="text-black first-title">What's</h1>
-        <h1 className="text-light-brown sec-title">Everyone</h1>
-        <h1 className="text-black third-title">Talking</h1>
+    <section className="testimonials-section" id="lookbook">
+      <div className="lookbook-title">
+        <h1 className="first-title">Wear</h1>
+        <h1 className="sec-title">the</h1>
+        <h1 className="third-title">shift</h1>
       </div>
 
       <div className="pin-box">
-        {cards.map((card, index) => (
-          <div
-            key={index}
+        {cards.map((card) => (
+          <figure
+            key={card.name}
             className={`vd-card ${card.translation} ${card.rotation}`}
-            onMouseEnter={() => handlePlay(index)}
-            onMouseLeave={() => handlePause(index)}
           >
-            <video
-              ref={(el) => (vdRef.current[index] = el)}
-              src={card.src}
-              playsInline
-              muted
-              loop
-              className="size-full object-cover"
+            <img
+              src={card.image}
+              alt={`Lookbook view of the ${card.name}`}
+              width="900"
+              height="1500"
+              loading="lazy"
             />
-          </div>
+            <figcaption>{card.name}</figcaption>
+          </figure>
         ))}
       </div>
     </section>

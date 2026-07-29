@@ -1,25 +1,23 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { useMediaQuery } from "react-responsive";
 
 const HeroSection = () => {
-  const isMobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
-
-  const isTablet = useMediaQuery({
-    query: "(max-width: 1024px)",
-  });
-
   useGSAP(() => {
-    const titleSplit = SplitText.create(".hero-title", {
-      type: "chars",
-    });
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const titleSplit = SplitText.create(".hero-title", { type: "chars" });
 
-    const tl = gsap.timeline({
-      delay: 1,
-    });
+    if (reduceMotion) {
+      gsap.set(".hero-content", { opacity: 1, y: 0 });
+      gsap.set(".hero-text-scroll", {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      });
+      return;
+    }
+
+    const tl = gsap.timeline({ delay: 0.35 });
 
     tl.to(".hero-content", {
       opacity: 1,
@@ -48,7 +46,7 @@ const HeroSection = () => {
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-container",
-        start: "1% top",
+        start: "top top",
         end: "bottom top",
         scrub: true,
       },
@@ -62,33 +60,20 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="bg-main-bg">
+    <section className="hero-stage">
       <div className="hero-container">
-        {isTablet ? (
-          <>
-            {isMobile && (
-              <img
-                src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
-                className="absolute bottom-40 size-full object-cover"
-              />
-            )}
-            <img
-              src={`${import.meta.env.BASE_URL}images/hero-img.png`}
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 object-auto"
-            />
-          </>
-        ) : (
-          <video
-            src={`${import.meta.env.BASE_URL}videos/hero-bg.mp4`}
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
+        <img
+          src={`${import.meta.env.BASE_URL}fashion/hero-rose-tailoring.jpg`}
+          alt="Model wearing deep-rose tailoring and a charcoal asymmetric skirt"
+          className="hero-image"
+          width="758"
+          height="1600"
+          fetchPriority="high"
+        />
+        <div className="hero-scrim" />
         <div className="hero-content opacity-0">
           <div className="overflow-hidden">
-            <h1 className="hero-title">Freaking Delicious</h1>
+            <h1 className="hero-title">Cut for the bold</h1>
           </div>
           <div
             style={{
@@ -97,18 +82,16 @@ const HeroSection = () => {
             className="hero-text-scroll"
           >
             <div className="hero-subtitle">
-              <h1>Protein + Caffine </h1>
+              <h2>Womenswear in motion</h2>
             </div>
           </div>
 
-          <h2>
-            Live life to the fullest  with SPYLT: Shatter boredom and embrace
-            your inner kid with every deliciously smooth chug.
-          </h2>
-
-          <div className="hero-button">
-            <p>Chug a SPYLT</p>
-          </div>
+          <p className="hero-copy">
+            Six expressive pieces shaped around movement, structure and confident colour.
+          </p>
+          <a className="hero-button" href="#collection">
+            View collection
+          </a>
         </div>
       </div>
     </section>

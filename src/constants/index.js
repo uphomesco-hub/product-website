@@ -2,93 +2,60 @@ const base = import.meta.env.BASE_URL;
 
 const flavorlists = [
   {
-    name: "Chocolate Milk",
-    color: "brown",
-    rotation: "md:rotate-[-8deg] rotate-0",
+    name: "Liquid Satin Dress",
+    price: "₹4,290",
+    detail: "Charcoal satin",
+    image: `${base}fashion/01-liquid-satin-dress.jpg`,
+    rotation: "product-tilt-left",
   },
   {
-    name: "Stawberry Milk",
-    color: "red",
-    rotation: "md:rotate-[8deg] rotate-0",
+    name: "Silver Line Trench",
+    price: "₹6,490",
+    detail: "Smoke technical shell",
+    image: `${base}fashion/02-silver-trench.jpg`,
+    rotation: "product-tilt-right",
   },
   {
-    name: "Cookies & Cream",
-    color: "blue",
-    rotation: "md:rotate-[-8deg] rotate-0",
+    name: "Rose Arc Knit",
+    price: "₹3,890",
+    detail: "Sculpted rib knit",
+    image: `${base}fashion/03-rose-knit-dress.jpg`,
+    rotation: "product-tilt-left",
   },
   {
-    name: "Peanut Butter Chocolate",
-    color: "orange",
-    rotation: "md:rotate-[8deg] rotate-0",
+    name: "Folded Shell",
+    price: "₹2,990",
+    detail: "Off-white structured weave",
+    image: `${base}fashion/04-folded-shell-top.jpg`,
+    rotation: "product-tilt-right",
   },
   {
-    name: "Vanilla Milkshake",
-    color: "white",
-    rotation: "md:rotate-[-8deg] rotate-0",
+    name: "Shift Cropped Jacket",
+    price: "₹5,290",
+    detail: "Deep-rose wool blend",
+    image: `${base}fashion/05-cropped-rose-jacket.jpg`,
+    rotation: "product-tilt-left",
   },
   {
-    name: "Max Chocolate Milk",
-    color: "black",
-    rotation: "md:rotate-[8deg] rotate-0",
+    name: "Asymmetric Column",
+    price: "₹4,690",
+    detail: "Smoke fluid jersey",
+    image: `${base}fashion/06-asymmetric-column-dress.jpg`,
+    rotation: "product-tilt-right",
   },
 ];
 
 const nutrientLists = [
-  { label: "Potassium", amount: "245mg" },
-  { label: "Calcium", amount: "500mg" },
-  { label: "Vitamin A", amount: "176mcg" },
-  { label: "Vitamin D", amount: "5mcg" },
-  { label: "Iron", amount: "1mg" },
+  { label: "Collection", amount: "Six pieces" },
+  { label: "Palette", amount: "Rose + smoke" },
+  { label: "Silhouette", amount: "Cut to move" },
+  { label: "Sizing", amount: "XS to XL" },
 ];
 
-const cards = [
-  {
-    src: `${base}videos/f1.mp4`,
-    rotation: "rotate-z-[-10deg]",
-    name: "Madison",
-    img: `${base}images/p1.png`,
-    translation: "translate-y-[-5%]",
-  },
-  {
-    src: `${base}videos/f2.mp4`,
-    rotation: "rotate-z-[4deg]",
-    name: "Alexander",
-    img: `${base}images/p2.png`,
-  },
-  {
-    src: `${base}videos/f3.mp4`,
-    rotation: "rotate-z-[-4deg]",
-    name: "Andrew",
-    img: `${base}images/p3.png`,
-    translation: "translate-y-[-5%]",
-  },
-  {
-    src: `${base}videos/f4.mp4`,
-    rotation: "rotate-z-[4deg]",
-    name: "Bryan",
-    img: `${base}images/p4.png`,
-    translation: "translate-y-[5%]",
-  },
-  {
-    src: `${base}videos/f5.mp4`,
-    rotation: "rotate-z-[-10deg]",
-    name: "Chris",
-    img: `${base}images/p5.png`,
-  },
-  {
-    src: `${base}videos/f6.mp4`,
-    rotation: "rotate-z-[4deg]",
-    name: "Devante",
-    img: `${base}images/p6.png`,
-    translation: "translate-y-[5%]",
-  },
-  {
-    src: `${base}videos/f7.mp4`,
-    rotation: "rotate-z-[-3deg]",
-    name: "Melisa",
-    img: `${base}images/p7.png`,
-    translation: "translate-y-[10%]",
-  },
-];
+const cards = flavorlists.map((product, index) => ({
+  ...product,
+  rotation: index % 2 === 0 ? "lookbook-tilt-left" : "lookbook-tilt-right",
+  translation: index % 3 === 0 ? "lookbook-lift" : "",
+}));
 
 export { flavorlists, nutrientLists, cards };

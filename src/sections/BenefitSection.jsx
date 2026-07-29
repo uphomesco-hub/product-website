@@ -5,6 +5,11 @@ import VideoPinSection from "../components/VideoPinSection";
 
 const BenefitSection = () => {
   useGSAP(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduceMotion) return;
+
     const revealTl = gsap.timeline({
       delay: 1,
       scrollTrigger: {
@@ -44,51 +49,44 @@ const BenefitSection = () => {
 
   return (
     <section className="benefit-section">
-      <div className="container mx-auto pt-20">
+      <div className="benefit-content">
         <div className="col-center">
-          <p>
-            Unlock the Advantages: <br />
-            Explore the Key Benefits of Choosing SPYLT
-          </p>
+          <p>One collection. Six distinct ways to enter a room.</p>
 
-          <div className="mt-20 col-center">
+          <div className="benefit-title-stack col-center">
             <ClipPathTitle
-              title={"Shelf stable"}
-              color={"#faeade"}
-              bg={"#c88e64"}
+              title={"Clean structure"}
+              color={"#f1eff0"}
+              bg={"#a63b5c"}
               className={"first-title"}
-              borderColor={"#222123"}
+              borderColor={"#171719"}
             />
             <ClipPathTitle
-              title={"Protein + Caffeine"}
-              color={"#222123"}
-              bg={"#faeade"}
+              title={"Fluid movement"}
+              color={"#171719"}
+              bg={"#d4d5d9"}
               className={"second-title"}
-              borderColor={"#222123"}
+              borderColor={"#171719"}
             />
             <ClipPathTitle
-              title={"Infinitely recyclable"}
-              color={"#faeade"}
-              bg={"#7F3B2D"}
+              title={"Confident colour"}
+              color={"#f1eff0"}
+              bg={"#a63b5c"}
               className={"third-title"}
-              borderColor={"#222123"}
+              borderColor={"#171719"}
             />
             <ClipPathTitle
-              title={"Lactose free"}
-              color={"#2E2D2F"}
-              bg={"#FED775"}
+              title={"Your own rhythm"}
+              color={"#171719"}
+              bg={"#d4d5d9"}
               className={"fourth-title"}
-              borderColor={"#222123"}
+              borderColor={"#171719"}
             />
-          </div>
-
-          <div className="md:mt-0 mt-10">
-            <p>And much more ...</p>
           </div>
         </div>
       </div>
 
-      <div className="relative overlay-box">
+      <div className="overlay-box">
         <VideoPinSection />
       </div>
     </section>
