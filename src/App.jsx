@@ -163,6 +163,8 @@ function App() {
   const pageRef = useRef(null);
   const propertyWrapRef = useRef(null);
   const propertyTrackRef = useRef(null);
+  const trustWrapRef = useRef(null);
+  const trustPanelRef = useRef(null);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia(
@@ -213,20 +215,53 @@ function App() {
           },
         });
 
-        gsap.to(".manifesto-muted", {
-          color: "var(--text)",
-          stagger: 0.18,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".manifesto",
-            start: "top 62%",
-            end: "center center",
-            scrub: true,
-          },
-        });
-
         media = gsap.matchMedia();
         media.add("(min-width: 901px)", () => {
+          const huntTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".manifesto",
+              start: "top top",
+              end: "+=1250",
+              pin: true,
+              scrub: 1,
+            },
+          });
+
+          huntTimeline
+            .fromTo(
+              ".manifesto-word",
+              {
+                yPercent: 70,
+                color: "var(--manifesto-muted)",
+              },
+              {
+                yPercent: 0,
+                color: "var(--text)",
+                stagger: 0.09,
+                ease: "power1.inOut",
+              }
+            )
+            .fromTo(
+              ".manifesto-highlight",
+              { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" },
+              {
+                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+                ease: "circ.inOut",
+              },
+              "-=0.35"
+            )
+            .from(
+              ".compare-grid article",
+              {
+                yPercent: 38,
+                opacity: 0,
+                rotate: (index) => (index === 0 ? -2 : 2),
+                stagger: 0.2,
+                ease: "power2.out",
+              },
+              "-=0.1"
+            );
+
           const wrap = propertyWrapRef.current;
           const track = propertyTrackRef.current;
           const distance = () =>
@@ -244,6 +279,127 @@ function App() {
               invalidateOnRefresh: true,
             },
           });
+
+          const trustTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: trustWrapRef.current,
+              start: "top top",
+              end: "+=1500",
+              pin: true,
+              scrub: 1,
+            },
+          });
+
+          trustTimeline
+            .fromTo(
+              trustPanelRef.current,
+              { clipPath: "circle(5% at 50% 50%)" },
+              {
+                clipPath: "circle(150% at 50% 50%)",
+                ease: "power1.inOut",
+              }
+            )
+            .from(
+              ".trust-content",
+              {
+                y: 42,
+                opacity: 0,
+                stagger: 0.08,
+                ease: "power2.out",
+              },
+              "-=0.25"
+            );
+
+          const reviewTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".reviews",
+              start: "top top",
+              end: "+=1200",
+              pin: true,
+              scrub: 1,
+            },
+          });
+
+          reviewTimeline
+            .from(".reviews-title span:first-child", {
+              xPercent: -34,
+              ease: "power1.out",
+            })
+            .from(
+              ".reviews-title span:last-child",
+              {
+                xPercent: 34,
+                ease: "power1.out",
+              },
+              "<"
+            )
+            .from(
+              ".review",
+              {
+                yPercent: 135,
+                rotate: (index) => [-5, 2, 5][index],
+                stagger: 0.18,
+                ease: "power2.out",
+              },
+              "-=0.15"
+            );
+
+          const featureTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".features",
+              start: "top 72%",
+              end: "top 18%",
+              scrub: 1,
+            },
+          });
+
+          featureTimeline
+            .from(".features .section-heading h2", {
+              yPercent: 54,
+              clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+              ease: "circ.out",
+            })
+            .from(
+              ".features .section-heading p",
+              { y: 22, opacity: 0, ease: "power2.out" },
+              "-=0.4"
+            )
+            .from(
+              ".feature-grid > *",
+              {
+                yPercent: 34,
+                opacity: 0,
+                stagger: 0.08,
+                ease: "power2.out",
+              },
+              "-=0.25"
+            );
+
+          const guideTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".blogs",
+              start: "top 72%",
+              end: "top 18%",
+              scrub: 1,
+            },
+          });
+
+          guideTimeline
+            .from(".blogs .section-heading h2", {
+              yPercent: 54,
+              clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+              ease: "circ.out",
+            })
+            .from(
+              ".blog-grid > *",
+              {
+                clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+                y: 36,
+                stagger: 0.12,
+                ease: "circ.out",
+              },
+              "-=0.35"
+            );
         });
       }, pageRef);
     }
@@ -317,18 +473,22 @@ function App() {
       <section className="manifesto" id="compare">
         <div className="manifesto-copy">
           <h2>
-            <span className="manifesto-muted">A rental hunt should give you </span>
-            <span className="manifesto-muted">clear details, </span>
-            <span className="manifesto-muted">real contacts, </span>
-            <strong>and less chase.</strong>
+            {"A rental hunt should give you clear details, real contacts,"
+              .split(" ")
+              .map((word, index) => (
+                <span className="manifesto-word" key={`${word}-${index}`}>
+                  {word}{" "}
+                </span>
+              ))}
+            <strong className="manifesto-highlight">and less chase.</strong>
           </h2>
-          <p className="reveal">
+          <p>
             UpHomes brings cleaner property information, affordable owner
             contact, and matching support into one focused search.
           </p>
         </div>
 
-        <div className="compare-grid reveal">
+        <div className="compare-grid">
           <article>
             <p className="compare-label">The usual hunt</p>
             <h3>Repeated calls. Unclear details. Broker-style fees.</h3>
@@ -377,22 +537,22 @@ function App() {
       </section>
 
       <section className="features section-shell" id="features">
-        <div className="section-heading reveal">
+        <div className="section-heading">
           <h2>Rent smarter, faster, safer.</h2>
           <p>
-            The current UpHomes capabilities stay intact, now expressed through
-            a sharper editorial system.
+            Find matching homes, compare cleaner details, and choose the
+            contacts worth unlocking.
           </p>
         </div>
 
         <div className="feature-grid">
           {features.map((feature, index) => (
-            <article className={`feature feature-${index + 1} reveal`} key={feature.title}>
+            <article className={`feature feature-${index + 1}`} key={feature.title}>
               <h3>{feature.title}</h3>
               <p>{feature.body}</p>
             </article>
           ))}
-          <figure className="feature-visual reveal">
+          <figure className="feature-visual">
             <img
               src={`${base}property-bedroom.avif`}
               alt="Cool grey rental bedroom with a balcony"
@@ -404,18 +564,27 @@ function App() {
         </div>
       </section>
 
-      <section className="metrics section-shell" id="metrics">
-        <div className="metrics-heading reveal">
-          <h2>Trust, shown in scale.</h2>
-          <p>Current homepage metrics, given room to speak.</p>
-        </div>
-        <div className="metric-grid">
-          {metrics.map((metric, index) => (
-            <article className={`metric metric-${index + 1} reveal`} key={metric.label}>
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-            </article>
-          ))}
+      <section className="trust-reveal" ref={trustWrapRef}>
+        <div
+          className="trust-panel metrics section-shell"
+          id="metrics"
+          ref={trustPanelRef}
+        >
+          <div className="metrics-heading trust-content">
+            <h2>Trust, shown in scale.</h2>
+            <p>Real activity across the UpHomes rental community.</p>
+          </div>
+          <div className="metric-grid">
+            {metrics.map((metric, index) => (
+              <article
+                className={`metric metric-${index + 1} trust-content`}
+                key={metric.label}
+              >
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -440,12 +609,15 @@ function App() {
       </section>
 
       <section className="reviews section-shell" id="testimonials">
-        <div className="section-heading reveal">
-          <h2>What renters and owners say.</h2>
+        <div className="section-heading">
+          <h2 className="reviews-title">
+            <span>What renters</span>
+            <span>and owners say.</span>
+          </h2>
         </div>
         <div className="review-stage">
           {reviews.map((review, index) => (
-            <blockquote className={`review review-${index + 1} reveal`} key={review.name}>
+            <blockquote className={`review review-${index + 1}`} key={review.name}>
               <p>“{review.quote}”</p>
               <footer>
                 <strong>{review.name}</strong>
@@ -508,12 +680,12 @@ function App() {
       </section>
 
       <section className="blogs section-shell" id="blogs">
-        <div className="section-heading reveal">
+        <div className="section-heading">
           <h2>Rental guides for real decisions.</h2>
         </div>
         <div className="blog-grid">
           {blogs.map((blog, index) => (
-            <article className={`blog blog-${index + 1} reveal`} key={blog.title}>
+            <article className={`blog blog-${index + 1}`} key={blog.title}>
               <span>{blog.place}</span>
               <h3>{blog.title}</h3>
               <p>{blog.body}</p>
