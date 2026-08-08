@@ -1375,6 +1375,40 @@ blockquote {
   white-space: nowrap;
 }
 
+.footer-motion-ready .footer-meta-column,
+.footer-motion-ready .footer-brand-title,
+.footer-motion-ready .footer-bottom {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-motion-ready .footer-brand-title {
+  transform: translate3d(0, 10px, 0);
+  transition-duration: 560ms;
+}
+
+.footer-motion-ready .footer-meta-column:nth-child(2) {
+  transition-delay: 45ms;
+}
+
+.footer-motion-ready .footer-meta-column:nth-child(3) {
+  transition-delay: 90ms;
+}
+
+.footer-motion-ready .footer-bottom {
+  transition-delay: 80ms;
+}
+
+.footer-motion-ready.footer-visible .footer-meta-column,
+.footer-motion-ready.footer-visible .footer-brand-title,
+.footer-motion-ready.footer-visible .footer-bottom {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 .footer h2 {
   max-width: 1000px;
   color: #f8f7ff;
@@ -1403,9 +1437,35 @@ blockquote {
 }
 
 .footer-link-arrow {
-  margin-left: 2px;
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  margin-left: 3px;
   opacity: 0.8;
-  font-size: 0.82rem;
+}
+
+.footer-link-arrow::before {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  content: "";
+}
+
+.footer-link-arrow::after {
+  position: absolute;
+  top: 5px;
+  left: 1px;
+  width: 9px;
+  height: 1px;
+  transform: rotate(-45deg);
+  background: currentColor;
+  content: "";
 }
 
 .footer-bottom {
@@ -2241,5 +2301,20 @@ blockquote {
 @media (max-width: 640px) {
   .city-symbols {
     display: none;
+  }
+
+  .site-nav {
+    backdrop-filter: blur(12px) saturate(130%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-motion-ready .footer-meta-column,
+  .footer-motion-ready .footer-brand-title,
+  .footer-motion-ready .footer-bottom {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

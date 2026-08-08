@@ -459,6 +459,7 @@ function App() {
     let context;
     let media;
     let agentObserver;
+    let footerObserver;
 
     const agentSection = pageRef.current?.querySelector(".agent");
     if (agentSection) {
@@ -472,6 +473,20 @@ function App() {
         { threshold: 0.12 }
       );
       agentObserver.observe(agentSection);
+    }
+
+    const footer = footerRef.current;
+    if (footer) {
+      footer.classList.add("footer-motion-ready");
+      footerObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          footer.classList.add("footer-visible");
+          footerObserver?.disconnect();
+        },
+        { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+      );
+      footerObserver.observe(footer);
     }
 
     async function setupScrollStory() {
@@ -525,56 +540,6 @@ function App() {
             scrub: 1,
           },
         });
-
-        const footer = footerRef.current;
-        if (footer) {
-          const footerColumns = gsap.utils.toArray(
-            ".footer-meta-column",
-            footer
-          );
-          const footerBrand = footer.querySelector(".footer-brand-title");
-          const footerBottom = footer.querySelector(".footer-bottom");
-
-          gsap.set(footerColumns, { autoAlpha: 0, y: 12 });
-          gsap.set(footerBrand, { autoAlpha: 0, yPercent: 12 });
-          gsap.set(footerBottom, { autoAlpha: 0, y: 8 });
-
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: footer,
-                start: "top 94%",
-                once: true,
-              },
-            })
-            .to(footerColumns, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.48,
-              stagger: 0.07,
-              ease: "power3.out",
-            })
-            .to(
-              footerBrand,
-              {
-                autoAlpha: 1,
-                yPercent: 0,
-                duration: 0.68,
-                ease: "power4.out",
-              },
-              0
-            )
-            .to(
-              footerBottom,
-              {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.4,
-                ease: "power2.out",
-              },
-              0.12
-            );
-        }
 
         media = gsap.matchMedia();
         media.add("(min-width: 901px)", () => {
@@ -778,6 +743,7 @@ function App() {
     return () => {
       cancelled = true;
       agentObserver?.disconnect();
+      footerObserver?.disconnect();
       media?.revert();
       context?.revert();
     };
@@ -1101,7 +1067,7 @@ function App() {
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 >
                   <span>{item.label}</span>
-                  <span className="footer-link-arrow">↗</span>
+                  <span className="footer-link-arrow" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -1116,7 +1082,7 @@ function App() {
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 >
                   <span>{item.label}</span>
-                  <span className="footer-link-arrow">↗</span>
+                  <span className="footer-link-arrow" aria-hidden="true" />
                 </a>
               ))}
               <p className="footer-year">2026</p>
