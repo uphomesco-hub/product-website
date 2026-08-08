@@ -2,19 +2,6 @@
 /* global process */
 
 import { useEffect, useRef } from "react";
-import {
-  FaApple,
-  FaEnvelope,
-  FaFacebookF,
-  FaBookOpen,
-  FaGooglePlay,
-  FaInstagram,
-  FaLinkedinIn,
-  FaMobileAlt,
-  FaQuestionCircle,
-  FaSearch,
-} from "react-icons/fa";
-
 const base = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/uphomes/`;
 
 const homes = [
@@ -53,6 +40,15 @@ const homes = [
     href: "https://uphomes.in/search/property/v1Ochj0yBbUeIEQCpmju",
     width: 960,
     height: 1280,
+  },
+  {
+    city: "Hyderabad",
+    type: "ASBL Spectra, Financial District",
+    detail: "₹78,000/month · 3 BHK · Fully furnished",
+    image: `${base}properties/hyderabad.jpg`,
+    href: "https://uphomes.in/search/property/8VowqAm93LWDXlDTmu73",
+    width: 1080,
+    height: 1440,
   },
 ];
 
@@ -188,162 +184,21 @@ const blogs = [
 ];
 
 const footerLinks = [
-  {
-    label: "Browse Properties",
-    href: "https://uphomes.in/search",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M11 4a7 7 0 0 1 4.92 11.95"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M20 20l-3.5-3.5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Get the App",
-    href: "https://uphomes.in/download",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M9 5h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M8 7h8M8 17h8"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "FAQs",
-    href: "https://uphomes.in/faq",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M12 8v.01"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M10.5 11.5c0-1.5 1.1-2.25 2.1-2.7.86-.39 1.5-.78 1.5-1.65a1.6 1.6 0 1 0-3.2 0"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M12 18h.01"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-    {
-      label: "Guides",
-      href: "https://uphomes.in/blogs",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect
-            x="4"
-            y="5"
-            width="16"
-            height="14"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            rx="1"
-        />
-        <path
-          d="M8 9h8M8 13h5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Contact Us",
-    href: "mailto:contact@uphomes.in",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect
-          x="3"
-          y="4"
-          width="18"
-          height="16"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M4 7l8 6 8-6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
+  { label: "Browse Properties", href: "https://uphomes.in/search" },
+  { label: "Get the App", href: "https://uphomes.in/download" },
+  { label: "FAQs", href: "https://uphomes.in/faq" },
+  { label: "Guides", href: "https://uphomes.in/blogs" },
+  { label: "Contact Us", href: "mailto:contact.in" },
 ];
 
 const socialLinks = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/uphomes.in/",
-    icon: <FaInstagram />,
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61572085060403",
-    icon: <FaFacebookF />,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/uphomes/",
-    icon: <FaLinkedinIn />,
-  },
-  {
-    label: "Email",
-    href: "mailto:contact@uphomes.in",
-    icon: <FaEnvelope />,
-  },
-  {
-    label: "App Store",
-    href: "https://apps.apple.com/in/app/uphomes/id6737268880",
-    icon: <FaApple />,
-  },
-  {
-    label: "Play Store",
-    href: "https://play.google.com/store/apps/details?id=com.flutterflow.homeU742786",
-    icon: <FaGooglePlay />,
-  },
+  { label: "Instagram", href: "https://www.instagram.com/uphomes.in/" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61572085060403" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/uphomes/" },
+  { label: "Email", href: "mailto:contact.in" },
+  { label: "App Store", href: "https://apps.apple.com/in/app/uphomes/id6737268880" },
+  { label: "Play Store", href: "https://play.google.com/store/apps/details?id=com.flutterflow.homeU742786" },
 ];
-
-const footerIconByLabel = {
-  "Browse Properties": <FaSearch />,
-  "Get the App": <FaMobileAlt />,
-  FAQs: <FaQuestionCircle />,
-  Guides: <FaBookOpen />,
-  "Contact Us": <FaEnvelope />,
-};
 
 function NavBar() {
   return (
@@ -368,7 +223,6 @@ function NavBar() {
         target="_blank"
         rel="noreferrer"
       >
-        <FaSearch aria-hidden="true" />
         <span>Browse Properties</span>
       </a>
     </nav>
@@ -594,8 +448,6 @@ function App() {
   const upbotVideoWrapRef = useRef(null);
   const upbotVideoBoxRef = useRef(null);
   const footerRef = useRef(null);
-  const footerContentRef = useRef(null);
-  const footerBrandRef = useRef(null);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia(
@@ -607,33 +459,6 @@ function App() {
     let context;
     let media;
     let agentObserver;
-    let footerRevealFrame;
-
-    const updateFooterReveal = () => {
-      const footer = footerRef.current;
-      const content = footerContentRef.current;
-      const brand = footerBrandRef.current;
-      if (!footer || !content || !brand) return;
-
-      const bounds = footer.getBoundingClientRect();
-      const progress = Math.min(
-        1,
-        Math.max(0, (window.innerHeight - bounds.top) / bounds.height)
-      );
-
-      content.style.transform = `translate3d(0, ${-50 + progress * 50}%, 0)`;
-      brand.style.opacity = String(progress);
-      brand.style.transform = `scale(${0.8 + progress * 0.2})`;
-    };
-
-    const queueFooterReveal = () => {
-      cancelAnimationFrame(footerRevealFrame);
-      footerRevealFrame = requestAnimationFrame(updateFooterReveal);
-    };
-
-    window.addEventListener("scroll", queueFooterReveal, { passive: true });
-    window.addEventListener("resize", queueFooterReveal);
-    queueFooterReveal();
 
     const agentSection = pageRef.current?.querySelector(".agent");
     if (agentSection) {
@@ -700,6 +525,56 @@ function App() {
             scrub: 1,
           },
         });
+
+        const footer = footerRef.current;
+        if (footer) {
+          const footerColumns = gsap.utils.toArray(
+            ".footer-meta-column",
+            footer
+          );
+          const footerBrand = footer.querySelector(".footer-brand-title");
+          const footerBottom = footer.querySelector(".footer-bottom");
+
+          gsap.set(footerColumns, { autoAlpha: 0, y: 12 });
+          gsap.set(footerBrand, { autoAlpha: 0, yPercent: 12 });
+          gsap.set(footerBottom, { autoAlpha: 0, y: 8 });
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: footer,
+                start: "top 94%",
+                once: true,
+              },
+            })
+            .to(footerColumns, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.48,
+              stagger: 0.07,
+              ease: "power3.out",
+            })
+            .to(
+              footerBrand,
+              {
+                autoAlpha: 1,
+                yPercent: 0,
+                duration: 0.68,
+                ease: "power4.out",
+              },
+              0
+            )
+            .to(
+              footerBottom,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.4,
+                ease: "power2.out",
+              },
+              0.12
+            );
+        }
 
         media = gsap.matchMedia();
         media.add("(min-width: 901px)", () => {
@@ -868,13 +743,32 @@ function App() {
               },
             }
           );
+
+          gsap.utils
+            .toArray(
+              ".property-intro, .property-card, .features .section-heading, .feature, .reviews .section-heading, .review"
+            )
+            .forEach((element, index) => {
+              gsap.from(element, {
+                autoAlpha: 0,
+                y: index % 2 === 0 ? 52 : 40,
+                scale: 0.985,
+                duration: 0.72,
+                ease: "power3.out",
+                clearProps: "transform,opacity,visibility",
+                scrollTrigger: {
+                  trigger: element,
+                  start: "top 88%",
+                  once: true,
+                },
+              });
+            });
         });
       }, pageRef);
 
       requestAnimationFrame(() => {
         if (!cancelled) {
           ScrollTrigger.refresh();
-          queueFooterReveal();
         }
       });
     }
@@ -884,9 +778,6 @@ function App() {
     return () => {
       cancelled = true;
       agentObserver?.disconnect();
-      window.removeEventListener("scroll", queueFooterReveal);
-      window.removeEventListener("resize", queueFooterReveal);
-      cancelAnimationFrame(footerRevealFrame);
       media?.revert();
       context?.revert();
     };
@@ -1191,7 +1082,7 @@ function App() {
       <GuidesSection />
 
       <footer className="footer" ref={footerRef}>
-        <div className="footer-content" ref={footerContentRef}>
+        <div className="footer-content">
           <div className="footer-meta">
             <div className="footer-meta-column">
               <h3>Identification</h3>
@@ -1209,9 +1100,6 @@ function App() {
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 >
-                  <span className="footer-link-icon" aria-hidden="true">
-                    {footerIconByLabel[item.label] ?? item.icon}
-                  </span>
                   <span>{item.label}</span>
                   <span className="footer-link-arrow">↗</span>
                 </a>
@@ -1227,9 +1115,6 @@ function App() {
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 >
-                  <span className="footer-link-icon" aria-hidden="true">
-                    {footerIconByLabel[item.label] ?? item.icon}
-                  </span>
                   <span>{item.label}</span>
                   <span className="footer-link-arrow">↗</span>
                 </a>
@@ -1238,7 +1123,7 @@ function App() {
             </div>
           </div>
           <div className="footer-brand-block">
-            <p className="footer-brand-title" ref={footerBrandRef}>UPHOMES</p>
+            <p className="footer-brand-title">UPHOMES</p>
           </div>
           <div className="footer-bottom">
             <p>© 2026 UpHomes. All rights reserved.</p>

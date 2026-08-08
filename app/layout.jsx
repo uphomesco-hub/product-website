@@ -17,7 +17,7 @@ export const metadata = {
     template: "%s | UpHomes",
   },
   description:
-    "Find verified rentals and flatmates in Pune, Bengaluru, Mumbai, and Gurugram. Compare clear property details, unlock contacts, and search smarter with UpHomes.",
+    "Find verified rentals and flatmates in Pune, Bengaluru, Mumbai, Gurugram, and Hyderabad. Compare clear property details, unlock contacts, and search smarter with UpHomes.",
   keywords: [
     "verified rentals",
     "rental homes India",
@@ -30,6 +30,7 @@ export const metadata = {
     "rentals in Bengaluru",
     "rentals in Mumbai",
     "rentals in Gurugram",
+    "rentals in Hyderabad",
     "UpHomes",
   ],
   applicationName: "UpHomes",
@@ -45,7 +46,7 @@ export const metadata = {
     siteName: "UpHomes",
     title: "UpHomes | Verified Rentals, Flatmates, Contact Unlock, and AI Home Search",
     description:
-      "Find verified rentals and flatmates across Pune, Bengaluru, Mumbai, and Gurugram, then unlock the contacts you choose.",
+      "Find verified rentals and flatmates across Pune, Bengaluru, Mumbai, Gurugram, and Hyderabad, then unlock the contacts you choose.",
     images: [
       {
         url: "/uphomes/properties/gurugram.jpg",
@@ -59,7 +60,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "UpHomes | Verified Rentals and Contact Unlock",
     description:
-      "Search verified rentals and flatmates across four UpHomes cities.",
+      "Search verified rentals and flatmates across five UpHomes cities.",
     images: ["/uphomes/properties/gurugram.jpg"],
   },
   robots: {
