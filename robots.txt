@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://uphomes.in
+Sitemap: https://uphomes.in/sitemap.xml
