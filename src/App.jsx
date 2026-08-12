@@ -460,6 +460,7 @@ function App() {
     let media;
     let agentObserver;
     let footerObserver;
+    let footerRevealTimer;
 
     const agentSection = pageRef.current?.querySelector(".agent");
     if (agentSection) {
@@ -477,11 +478,17 @@ function App() {
 
     const footer = footerRef.current;
     if (footer) {
+      footer.querySelectorAll(".footer-link-item").forEach((item, index) => {
+        item.style.setProperty("--footer-item-index", index);
+      });
       footer.classList.add("footer-motion-ready");
       footerObserver = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
           footer.classList.add("footer-visible");
+          footerRevealTimer = window.setTimeout(() => {
+            footer.classList.remove("footer-motion-ready");
+          }, 1500);
           footerObserver?.disconnect();
         },
         { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
@@ -501,21 +508,22 @@ function App() {
       gsap.registerPlugin(ScrollTrigger);
 
       context = gsap.context(() => {
+        if (window.matchMedia("(min-width: 901px)").matches) {
           gsap.utils.toArray(".reveal:not(.agent-reveal)").forEach((element) => {
             gsap.from(element, {
               y: 44,
               opacity: 0,
               immediateRender: false,
               duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 84%",
-              once: true,
-            },
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top 84%",
+                once: true,
+              },
+            });
           });
-
-        });
+        }
 
         gsap.from(".city-symbol", {
           opacity: 0,
@@ -682,6 +690,23 @@ function App() {
         });
 
         media.add("(max-width: 900px)", () => {
+          const heroPieces = gsap.utils.toArray(".hero-content > *");
+          if (heroPieces.length) {
+            gsap.fromTo(
+              heroPieces,
+              { autoAlpha: 0, y: 58, scale: 0.97 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.9,
+                stagger: 0.11,
+                ease: "power3.out",
+                clearProps: "transform,opacity,visibility",
+              }
+            );
+          }
+
           gsap.to(".manifesto-word", {
             color: "var(--text)",
             stagger: 0.09,
@@ -709,24 +734,100 @@ function App() {
             }
           );
 
-          gsap.utils
-            .toArray(
-              ".property-intro, .property-card, .features .section-heading, .feature, .reviews .section-heading, .review"
-            )
-            .forEach((element, index) => {
-              gsap.from(element, {
+          const mobileRevealGroups = [
+            {
+              selector: ".compare-grid article, .property-card",
+              from: (index) => ({
                 autoAlpha: 0,
-                y: index % 2 === 0 ? 52 : 40,
-                scale: 0.985,
-                duration: 0.72,
+                y: 104,
+                rotate: index % 2 === 0 ? -2 : 2,
+                scale: 0.93,
+              }),
+            },
+            {
+              selector: ".feature, .agent-step",
+              from: (index) => ({
+                autoAlpha: 0,
+                y: 96,
+                rotate: index % 2 === 0 ? -1.5 : 1.5,
+                scale: 0.94,
+              }),
+            },
+            {
+              selector: ".review, .screen, .faq details",
+              from: (index) => ({
+                autoAlpha: 0,
+                y: 108,
+                rotate: index % 2 === 0 ? -2 : 2,
+                scale: 0.92,
+              }),
+            },
+            {
+              selector:
+                ".property-intro, .features .section-heading, .upbot .section-heading, .upbot-copy, .upbot-video, .upbot-video-shell, .upbot video, .reviews .section-heading, .app-copy, .faq-heading",
+              from: (index) => ({
+                autoAlpha: 0,
+                x: index % 2 === 0 ? -26 : 26,
+                y: 32,
+                scale: 0.97,
+              }),
+              once: true,
+            },
+          ];
+          const claimedElements = new Set();
+
+          mobileRevealGroups.forEach(({ selector, from, once = false }) => {
+            gsap.utils.toArray(selector).forEach((element, index) => {
+              if (claimedElements.has(element)) return;
+              claimedElements.add(element);
+
+              gsap.fromTo(element, from(index), {
+                autoAlpha: 1,
+                x: 0,
+                y: 0,
+                rotate: 0,
+                scale: 1,
+                duration: 0.82,
                 ease: "power3.out",
-                clearProps: "transform,opacity,visibility",
+                clearProps: once ? "transform,opacity,visibility" : undefined,
                 scrollTrigger: {
                   trigger: element,
-                  start: "top 88%",
-                  once: true,
+                  start: once ? "top 90%" : "top 96%",
+                  end: once ? undefined : "top 60%",
+                  scrub: once ? undefined : 0.7,
+                  once,
                 },
               });
+            });
+          });
+
+          gsap.utils
+            .toArray(".reveal:not(.agent-reveal)")
+            .filter((element) => !claimedElements.has(element))
+            .forEach((element, index) => {
+              gsap.fromTo(
+                element,
+                {
+                  autoAlpha: 0,
+                  x: index % 2 === 0 ? -24 : 24,
+                  y: 30,
+                  scale: 0.98,
+                },
+                {
+                  autoAlpha: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  duration: 0.78,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity,visibility",
+                  scrollTrigger: {
+                    trigger: element,
+                    start: "top 90%",
+                    once: true,
+                  },
+                }
+              );
             });
         });
       }, pageRef);
@@ -744,6 +845,7 @@ function App() {
       cancelled = true;
       agentObserver?.disconnect();
       footerObserver?.disconnect();
+      window.clearTimeout(footerRevealTimer);
       media?.revert();
       context?.revert();
     };
@@ -855,8 +957,9 @@ function App() {
             </a>
           </div>
 
-          {homes.map((home, index) => (
-            <figure className={`property-card property-card-${index + 1}`} key={home.type}>
+          <div className="property-card-rail">
+            {homes.map((home, index) => (
+              <figure className={`property-card property-card-${index + 1}`} key={home.type}>
               <a
                 className="property-card-link"
                 href={home.href}
@@ -877,8 +980,9 @@ function App() {
                   <p>{home.detail}</p>
                 </figcaption>
               </a>
-            </figure>
-          ))}
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -919,10 +1023,9 @@ function App() {
         <div className="upbot-video-box" ref={upbotVideoBoxRef}>
           <video
             src={`${base}upbot-video.mp4`}
-            autoPlay
-            muted
-            loop
-            playsInline
+              controls
+              playsInline
+              preload="metadata"
             preload="metadata"
             aria-label="UpBot finds and verifies rental properties from a simple request"
           />
