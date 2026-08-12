@@ -1023,6 +1023,9 @@ function App() {
         <div className="upbot-video-box" ref={upbotVideoBoxRef}>
           <video
             src={`${base}upbot-video.mp4`}
+              autoPlay
+              muted
+              loop
               controls
               playsInline
               preload="metadata"
