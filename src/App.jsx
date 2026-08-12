@@ -453,7 +453,6 @@ function App() {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (reduceMotion) return undefined;
 
     let cancelled = false;
     let context;
@@ -461,6 +460,7 @@ function App() {
     let agentObserver;
     let footerObserver;
     let footerRevealTimer;
+    let upbotPlaybackObserver;
 
     const agentSection = pageRef.current?.querySelector(".agent");
     if (agentSection) {
@@ -494,6 +494,25 @@ function App() {
         { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
       );
       footerObserver.observe(footer);
+    }
+
+    const upbotVideo = upbotVideoBoxRef.current?.querySelector("video");
+    if (upbotVideo) {
+      upbotPlaybackObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            upbotVideo.play().catch(() => undefined);
+          } else {
+            upbotVideo.pause();
+          }
+        },
+        { rootMargin: "500px 0px", threshold: 0.01 }
+      );
+      upbotPlaybackObserver.observe(upbotVideo);
+    }
+
+    if (reduceMotion) {
+      return () => upbotPlaybackObserver?.disconnect();
     }
 
     async function setupScrollStory() {
@@ -845,6 +864,7 @@ function App() {
       cancelled = true;
       agentObserver?.disconnect();
       footerObserver?.disconnect();
+      upbotPlaybackObserver?.disconnect();
       window.clearTimeout(footerRevealTimer);
       media?.revert();
       context?.revert();
@@ -1023,13 +1043,11 @@ function App() {
         <div className="upbot-video-box" ref={upbotVideoBoxRef}>
           <video
             src={`${base}upbot-video.mp4`}
-              autoPlay
-              muted
-              loop
-              controls
-              playsInline
-              preload="metadata"
-            preload="metadata"
+            loop
+            controls
+            playsInline
+            preload="none"
+            poster={`${base}upbot-video-poster.jpg`}
             aria-label="UpBot finds and verifies rental properties from a simple request"
           />
         </div>

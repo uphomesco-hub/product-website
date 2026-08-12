@@ -2072,6 +2072,55 @@ blockquote {
   }
 }
 
+@media (min-width: 641px) {
+  .hero {
+    background: #171f24;
+    color: #f8f7ff;
+  }
+
+  .hero-kicker,
+  .hero-copy,
+  .hero p {
+    color: #cdd3db;
+  }
+
+  .hero h1,
+  .hero h1 span,
+  .hero-highlight {
+    color: #f8f7ff;
+  }
+
+  .hero .hero-content h1 > span {
+    color: #5146f2 !important;
+  }
+
+  .hero-highlight {
+    border-color: #f8f7ff;
+    background: #5146f2;
+  }
+
+  .hero .city-artwork {
+    opacity: 1;
+    filter: brightness(1.18) contrast(1.08)
+      drop-shadow(0 16px 24px rgb(0 0 0 / 34%));
+  }
+
+  .hero .city-symbol figcaption {
+    color: #f8f7ff;
+  }
+
+  .hero .button-primary {
+    background: #f8f7ff;
+    color: #171f24;
+  }
+
+  .hero .button-ghost {
+    border-color: rgb(248 247 255 / 48%);
+    background: rgb(248 247 255 / 8%);
+    color: #f8f7ff;
+  }
+}
+
 @media (max-width: 640px) {
   .nav-cta {
     max-width: 148px;
@@ -2340,6 +2389,32 @@ blockquote {
 
 /* Mobile hero stays focused on the headline and calls to action. */
 @media (max-width: 640px) {
+  .hero {
+    background: #171f24;
+    color: #f8f7ff;
+  }
+
+  .hero-kicker,
+  .hero-copy,
+  .hero p {
+    color: #cdd3db;
+  }
+
+  .hero h1,
+  .hero h1 span,
+  .hero-highlight {
+    color: #f8f7ff;
+  }
+
+  .hero .hero-content h1 > span {
+    color: #5146f2 !important;
+  }
+
+  .hero-highlight {
+    border-color: #f8f7ff;
+    background: #5146f2;
+  }
+
   .city-symbols {
     position: absolute;
     z-index: 1;
@@ -2398,9 +2473,11 @@ blockquote {
   .city-symbol .city-artwork {
     width: 100%;
     height: auto;
+    opacity: 1;
     object-fit: contain;
     animation: mobile-corner-float 4.4s ease-in-out infinite;
-    filter: drop-shadow(0 12px 18px rgb(22 24 27 / 13%));
+    filter: brightness(1.18) contrast(1.08)
+      drop-shadow(0 12px 18px rgb(0 0 0 / 32%));
   }
 
   .city-symbol-2 .city-artwork {
@@ -2418,7 +2495,9 @@ blockquote {
   .city-symbol figcaption {
     padding: 3px 7px;
     border-radius: 999px;
-    background: rgb(248 247 255 / 72%);
+    border: 1px solid rgb(248 247 255 / 24%);
+    background: rgb(248 247 255 / 12%);
+    color: #f8f7ff;
     font-size: 0.58rem;
     font-weight: 800;
     letter-spacing: 0.04em;
@@ -2446,6 +2525,17 @@ blockquote {
     width: 100%;
     align-items: center;
     justify-content: center;
+  }
+
+  .hero .button-primary {
+    background: #f8f7ff;
+    color: #171f24;
+  }
+
+  .hero .button-ghost {
+    border-color: rgb(248 247 255 / 48%);
+    background: rgb(248 247 255 / 8%);
+    color: #f8f7ff;
   }
 
   .property-track {
@@ -2518,6 +2608,24 @@ blockquote {
   50% {
     transform: translate3d(0, -7px, 0) scale(1.025);
   }
+}
+
+.hero .city-artwork {
+  opacity: 1;
+  filter: saturate(0.18) brightness(1.48) contrast(0.94)
+    drop-shadow(0 14px 22px rgb(0 0 0 / 32%));
+}
+
+.hero .hero-content h1 > span {
+  border-color: #f8f7ff !important;
+  background: #5146f2 !important;
+  color: #f8f7ff !important;
+}
+
+.hero .button-ghost {
+  border-color: #5146f2;
+  background: #5146f2;
+  color: #f8f7ff;
 }
 
 @media (prefers-reduced-motion: reduce) {
